@@ -8,6 +8,7 @@ const TEXT_BOX_WIDTH: f64 = 200.0;
 
 #[derive(Clone, Data, Lens)]
 struct HelloState {
+    repo_label: String,
     name: String,
 }
 
@@ -29,6 +30,7 @@ pub fn main() {
 
     // create the initial app state
     let initial_state = HelloState {
+        repo_label: "Repositories".into(),
         name: "World".into(),
     };
 
@@ -53,6 +55,16 @@ fn build_root_widget() -> impl Widget<HelloState> {
         .with_spacer(VERTICAL_WIDGET_SPACING)
         .with_child(textbox);
 
+    let repo_label = Label::new(|data: &HelloState, _env: &Env| format!("{}", data.repo_label));
+    
+    let leftbar = Flex::column()
+        .with_child(repo_label)
+        .with_spacer(VERTICAL_WIDGET_SPACING)
+        .with_child(Align::centered(Label::new("Repo 1")));
+    let app = Flex::row()
+        .with_child(leftbar)
+        .with_spacer(VERTICAL_WIDGET_SPACING)
+        .with_child(layout);
     // center the two widgets in the available space
-    Align::centered(layout)
+    Align::left(app)
 }

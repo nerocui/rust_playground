@@ -1,5 +1,5 @@
 use druid::widget::{Align, Flex, Label, TextBox};
-use druid::{AppLauncher, Data, Env, Lens, Widget, WidgetExt, WindowDesc};
+use druid::{AppLauncher, Data, Env, Lens, Widget, WidgetExt, WindowDesc, UnitPoint};
 
 use wasm_bindgen::prelude::*;
 
@@ -64,7 +64,9 @@ fn build_root_widget() -> impl Widget<HelloState> {
     let app = Flex::row()
         .with_child(leftbar)
         .with_spacer(VERTICAL_WIDGET_SPACING)
-        .with_child(layout);
+        .with_child(layout)
+        .align_vertical(UnitPoint::TOP_LEFT)
+        .padding(12.0);
     // center the two widgets in the available space
-    Align::left(app)
+    app
 }
